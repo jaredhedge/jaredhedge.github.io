@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="俄文在线翻译工具 - 提供高效、准确的俄汉互译服务，支持文档翻译、实时对话翻译及多语言转换，满足学习、工作及商务场景需求。">
+    <meta name="keywords" content="俄文在线翻译,俄汉翻译,俄语翻译器,俄语翻译软件,在线俄语翻译">
+    <title>俄文在线翻译-专业俄汉互译与多语言转换服务平台</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --primary-hover: #004494;
+            --accent-color: #e63946;
+            --bg-light: #f8f9fa;
+            --text-dark: #212529;
+            --text-gray: #6c757d;
+            --border-color: #dee2e6;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --radius: 8px;
+            --container-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            border-color: var(--border-color);
+            background: transparent;
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Translation Tool Interface */
+        .tool-section {
+            padding: 40px 0;
+        }
+
+        .translator-wrapper {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .translator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: #f8f9fa;
+        }
+
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-btn {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .swap-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-gray);
+            padding: 4px;
+        }
+
+        .swap-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .translator-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 400px;
+        }
+
+        .input-area, .output-area {
+            padding: 24px;
+            position: relative;
+        }
+
+        .input-area textarea, .output-area textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            font-size: 1.1rem;
+            font-family: inherit;
+            outline: none;
+            background: transparent;
+            min-height: 350px;
+        }
+
+        .input-area textarea::placeholder, .output-area textarea::placeholder {
+            color: #adb5bd;
+        }
+
+        .output-area {
+            background-color: #fafafa;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .output-area textarea {
+            color: var(--text-dark);
+        }
+
+        .translator-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+        }
+
+        .tool-options {
+            display: flex;
+            gap: 16px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .tool-options span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .tool-options input[type="checkbox"] {
+            accent-color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 32px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 60px 0;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .use-cases-content h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+
+        .use-cases-list li {
+            margin-bottom: 20px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .use-cases-list li::before {
+            content: "✓";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .use-cases-img {
+            background: #e3f2fd;
+            border-radius: var(--radius);
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 60px 0;
+            background-color: var(--bg-light);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #fff;
+            margin-bottom: 16px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px;
+            color: var(--text-gray);
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #ccc;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                height: auto;
+                padding: 12px 0;
+            }
+
+            nav ul {
+                margin: 12px 0;
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .translator-body {
+                grid-template-columns: 1fr;
+            }
+
+            .output-area {
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 8l6 6"></path>
+                    <path d="M4 14h6"></path>
+                    <path d="M2 5h12"></path>
+                    <path d="M7 2h1"></path>
+                    <path d="M22 22l-5-10-5 10"></path>
+                    <path d="M14 18h6"></path>
+                </svg>
+                TransLingua
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">在线翻译</a></li>
+                    <li><a href="#">文档翻译</a></li>
+                    <li><a href="#">API 接口</a></li>
+                    <li><a href="#">帮助中心</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn btn-outline">登录</a>
+                <a href="#" class="btn btn-primary">免费注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>俄文在线翻译</h1>
+                <p>支持俄汉互译、实时对话及文档批量翻译。精准识别俄语语法结构，为您提供专业、高效的跨语言沟通解决方案。</p>
+                <div class="tool-wrapper">
+                    <div class="translator-wrapper">
+                        <div class="translator-header">
+                            <div class="lang-switch">
+                                <button class="lang-btn">中文 <span>↓</span></button>
+                                <button class="swap-btn" onclick="swapLanguages()">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8v12M17 20l4-4M17 20l-4-4"></path>
+                                    </svg>
+                                </button>
+                                <button class="lang-btn">俄语 <span>↓</span></button>
+                            </div>
+                            <div class="tool-actions">
+                                <button class="btn btn-outline" style="padding: 4px 12px; font-size: 0.85rem;">清空</button>
+                            </div>
+                        </div>
+                        <div class="translator-body">
+                            <div class="input-area">
+                                <textarea id="sourceText" placeholder="请输入或粘贴俄语内容..."></textarea>
+                            </div>
+                            <div class="output-area">
+                                <textarea id="targetText" placeholder="翻译结果将显示在这里..." readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="translator-footer">
+                            <div class="tool-options">
+                                <span title="开启后翻译结果将更符合原文语体风格">
+                                    <input type="checkbox" id="formalToggle"> 专业模式
+                                </span>
+                                <span title="检测文本中是否包含敏感内容">
+                                    <input type="checkbox" id="safetyToggle"> 安全检测
+                                </span>
+                            </div>
+                            <button class="btn btn-primary" onclick="performTranslation()">开始翻译</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>为什么选择我们的俄文翻译工具</h2>
+                    <p>基于先进的神经网络翻译技术，专为俄语学习者和商务人士打造</p>
+                </div>
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3>文档翻译</h3>
+                        <p>支持 Word、PDF、PPT 等格式文档的批量上传与翻译，保留原有排版格式，方便商务文档处理。</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                        </div>
+                        <h3>智能对话</h3>
+                        <p>内置实时对话翻译功能，支持语音输入与输出，模拟真实对话场景，适合语言学习与即时沟通。</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </div>
+                        <h3>多语种支持</h3>
+                        <p>除了俄文，我们支持全球 100+ 种语言的互译，是您全球化办公与学习的得力助手。</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="use-cases">
+            <div class="container">
+                <div class="use-cases-grid">
+                    <div class="use-cases-content">
+                        <h2>满足多样化的俄语翻译需求</h2>
+                        <p style="margin-bottom: 24px; color: var(--text-gray);">无论您是留学、外贸还是学术研究，我们的工具都能提供精准支持。</p>
+                        <ul class="use-cases-list">
+                            <li><strong>商务外贸：</strong> 快速翻译俄语合同、邮件及产品说明书，降低沟通成本。</li>
+                            <li><strong>留学备考：</strong> 精准解析俄语语法难点，辅助阅读理解与论文写作。</li>
+                            <li><strong>学术研究：</strong> 处理专业术语库，确保俄语文献翻译的学术严谨性。</li>
+                            <li><strong>旅游出行：</strong> 实时翻译路标、菜单及问路对话，轻松畅游俄罗斯。</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline" style="margin-top: 16px;">查看更多应用场景</a>
+                    </div>
+                    <div class="use-cases-img">
+                        <div style="text-align: center;">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom: 16px;">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                            <p>多格式文件支持</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="container faq-container">
+                <div class="section-header">
+                    <h2>常见问题解答</h2>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">免费版翻译字数有限制吗？<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                    <div class="faq-answer">是的，免费版用户每天有 500 字的翻译额度，足够进行日常的短文翻译和学习练习。升级 VIP 可享受无限字数翻译。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">翻译结果准确吗？<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                    <div class="faq-answer">我们的俄文翻译引擎经过大量语料库训练，能够准确处理通用语和商务文档。对于极其专业的法律或医学文本，建议人工校对。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">支持离线翻译吗？<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                    <div class="faq-answer">目前我们的在线翻译工具需要网络连接。移动端 APP 版本支持下载俄语离线语言包进行离线翻译。</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>TransLingua</h3>
+                    <p>致力于提供全球领先的在线翻译服务，连接语言与文化的桥梁。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>产品服务</h4>
+                    <ul>
+                        <li><a href="#">在线翻译</a></li>
+                        <li><a href="#">文档翻译</a></li>
+                        <li><a href="#">AI 写作助手</a></li>
+                        <li><a href="#">企业版 API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">公司简介</a></li>
+                        <li><a href="#">翻译团队</a></li>
+                        <li><a href="#">加入我们</a></li>
+                        <li><a href="#">联系方式</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>帮助支持</h4>
+                    <ul>
+                        <li><a href="#">使用指南</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">意见反馈</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TransLingua Translation Service. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function swapLanguages() {
+            const btn = document.querySelector('.swap-btn');
+            const sourceLabel = document.querySelector('.lang-btn:first-child');
+            const targetLabel = document.querySelector('.lang-btn:last-child');
+            
+            // Simple visual swap for demo purposes
+            const tempText = document.getElementById('sourceText').value;
+            const tempPlaceholder = document.getElementById('sourceText').placeholder;
+            
+            document.getElementById('sourceText').value = document.getElementById('targetText').value;
+            document.getElementById('sourceText').placeholder = document.getElementById('targetText').placeholder;
+            
+            document.getElementById('targetText').value = tempText;
+            document.getElementById('targetText').placeholder = tempPlaceholder;
+            
+            // Rotate icon
+            btn.style.transform = 'rotate(180deg)';
+            setTimeout(() => {
+                btn.style.transform = 'rotate(0deg)';
+            }, 300);
+        }
+
+        function performTranslation() {
+            const sourceText = document.getElementById('sourceText').value;
+            const targetText = document.getElementById('targetText');
+            const btn = document.querySelector('.translator-footer .btn-primary');
+            
+            if (!sourceText.trim()) {
+                targetText.value = "";
+                return;
+            }
+
+            // Simulate translation loading state
+            const originalText = btn.innerText;
+            btn.innerText = "翻译中...";
+            btn.style.opacity = "0.7";
+            targetText.value = "正在分析俄语语法结构...";
+
+            // Simulate API delay
+            setTimeout(() => {
+                // Mock translation logic for demo
+                let result = "";
+                if (sourceText.includes("你好") || sourceText.includes("Привет")) {
+                    result = "你好";
+                } else if (sourceText.includes("谢谢") || sourceText.includes("Спасибо")) {
+                    result = "谢谢";
+                } else if (sourceText.includes("再见") || sourceText.includes("До свидания")) {
+                    result = "再见";
+                } else {
+                    // Generate a pseudo-translation based on character count to simulate work
+                    result = "[模拟翻译] " + sourceText.split("").reverse().join("") + " (俄语)"; 
+                }
+
+                targetText.value = result;
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+            }, 800);
+        }
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', event => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+  </html>

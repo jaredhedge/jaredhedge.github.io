@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="给我饭 - 您的智能餐饮解决方案与美食社区。提供本地美食地图、餐厅推荐、外卖优惠信息以及家常菜谱分享。">
+    <meta name="keywords" content="给我饭, 美食推荐, 餐厅查询, 外卖平台, 家常菜谱, 本地生活">
+    <title>给我饭-本地美食推荐与智能餐饮服务平台</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #f7c59f;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-body: #fdfdfd;
+            --bg-card: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+
+        /* 布局容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            padding: 15px 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span { color: var(--text-dark); }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+        
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--text-dark);
+            background: transparent;
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background: var(--text-dark);
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #e85a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Hero 区域 */
+        .hero {
+            position: relative;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .hero-text h1 span { color: var(--primary-color); }
+
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #eee;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            outline: none;
+            border-radius: 50px;
+        }
+
+        .search-box button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover { background: #e85a2b; }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            height: auto;
+        }
+
+        /* 分类导航 */
+        .categories {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .cat-item {
+            background: var(--bg-body);
+            padding: 30px 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .cat-item:hover {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            border-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .cat-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .cat-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* 热门推荐 */
+        .recommendations {
+            padding: 80px 0;
+        }
+
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .food-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-img {
+            height: 200px;
+            width: 100%;
+            position: relative;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 20px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .rating {
+            color: #f1c40f;
+            font-size: 14px;
+        }
+
+        /* 菜谱区域 */
+        .recipes {
+            padding: 80px 0;
+            background: #fff9f5;
+        }
+
+        .recipe-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .recipe-item {
+            display: flex;
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .recipe-img {
+            width: 250px;
+            height: 180px;
+        }
+
+        .recipe-info {
+            padding: 25px;
+            flex: 1;
+        }
+
+        .recipe-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .recipe-desc {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .recipe-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            color: var(--text-light);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* 底部 */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #b2bec3;
+            font-size: 14px;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #636e72;
+            font-size: 13px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 36px; }
+            .hero-text p { margin: 0 auto 30px; }
+            .search-box { max-width: 100%; }
+            .recipe-item { flex-direction: column; }
+            .recipe-img { width: 100%; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                <span>给我饭</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#">首页</a>
+                <a href="#">餐厅推荐</a>
+                <a href="#">美食地图</a>
+                <a href="#">家常菜谱</a>
+                <a href="#">优惠活动</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-outline">登录</a>
+                <a href="#" class="btn btn-primary">发布店铺</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>不想做饭？<br><span>给我饭</span> 帮你找到最好吃的</h1>
+                    <p>无论你是想搜索附近的美食、查看最新优惠，还是寻找简单易学的家常菜做法，给我饭都能满足你。</p>
+                    <div class="search-box">
+                        <input type="text" placeholder="搜索餐厅、菜名或地址...">
+                        <button>搜索</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://picsum.photos/seed/foodhero/600/400.jpg" alt="美味佳肴展示">
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2>探索美食分类</h2>
+                    <p>无论你此刻想吃什么，这里都有答案</p>
+                </div>
+                <div class="cat-grid">
+                    <div class="cat-item">
+                        <span class="cat-icon">🍜</span>
+                        <div class="cat-title">面食馆</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">🍔</span>
+                        <div class="cat-title">快餐简餐</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">🍣</span>
+                        <div class="cat-title">日式料理</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">🍕</span>
+                        <div class="cat-title">西式简餐</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">🍲</span>
+                        <div class="cat-title">火锅串串</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">🥗</span>
+                        <div class="cat-title">轻食沙拉</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">🥡</span>
+                        <div class="cat-title">外卖配送</div>
+                    </div>
+                    <div class="cat-item">
+                        <span class="cat-icon">☕</span>
+                        <div class="cat-title">咖啡甜点</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendations -->
+        <section class="recommendations">
+            <div class="container">
+                <div class="section-header">
+                    <h2>本周热门推荐</h2>
+                    <p>本地食客都在关注的高分餐厅</p>
+                </div>
+                <div class="rec-grid">
+                    <article class="food-card">
+                        <div class="card-img">
+                            <img src="https://picsum.photos/seed/burger/400/300.jpg" alt="经典牛肉汉堡">
+                            <span class="card-tag">人气榜第1</span>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">原汁原味牛肉汉堡</h3>
+                            <div class="card-meta">
+                                <span>🍔 西式简餐</span>
+                                <span>1.2km</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="price">¥38起</span>
+                                <span class="rating">⭐ 4.9</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="food-card">
+                        <div class="card-img">
+                            <img src="https://picsum.photos/seed/salad/400/300.jpg" alt="鲜果蔬菜沙拉">
+                            <span class="card-tag">低卡健康</span>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">田园鲜果蔬菜沙拉</h3>
+                            <div class="card-meta">
+                                <span>🥗 轻食</span>
+                                <span>0.8km</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="price">¥28</span>
+                                <span class="rating">⭐ 4.7</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="food-card">
+                        <div class="card-img">
+                            <img src="https://picsum.photos/seed/noodle/400/300.jpg" alt="红烧牛肉面">
+                            <span class="card-tag">今日特价</span>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">老字号红烧牛肉面</h3>
+                            <div class="card-meta">
+                                <span>🍜 面食馆</span>
+                                <span>2.5km</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="price">¥22</span>
+                                <span class="rating">⭐ 4.8</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="#" class="btn btn-outline">查看更多推荐</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recipes Section -->
+        <section class="recipes">
+            <div class="container">
+                <div class="section-header">
+                    <h2>简单易学的家常菜谱</h2>
+                    <p>今晚吃什么？从这几道菜开始</p>
+                </div>
+                <div class="recipe-list">
+                    <article class="recipe-item">
+                        <div class="recipe-img">
+                            <img src="https://picsum.photos/seed/steak/500/350.jpg" alt="黑椒牛柳">
+                        </div>
+                        <div class="recipe-info">
+                            <h3>黑椒牛柳盖饭</h3>
+                            <div class="recipe-tags">
+                                <span class="tag">20分钟</span>
+                                <span class="tag">下饭菜</span>
+                                <span class="tag">新手友好</span>
+                            </div>
+                            <p class="recipe-desc">选用嫩滑的牛里脊，搭配黑椒汁和时蔬，制作简单，口感丰富，是忙碌工作日的绝佳选择。只需简单的腌制和快炒，就能在家还原餐厅级美味。</p>
+                            <a href="#" class="btn btn-primary">查看做法</a>
+                        </div>
+                    </article>
+
+                    <article class="recipe-item">
+                        <div class="recipe-img">
+                            <img src="https://picsum.photos/seed/pancake/500/350.jpg" alt="松饼">
+                        </div>
+                        <div class="recipe-info">
+                            <h3>日式松饼</h3>
+                            <div class="recipe-tags">
+                                <span class="tag">早餐</span>
+                                <span class="tag">甜品</span>
+                                <span class="tag">低脂</span>
+                            </div>
+                            <p class="recipe-desc">松软绵密的口感，淋上蜂蜜和新鲜水果，瞬间开启元气满满的一天。无需打发蛋白，用普通面粉也能做出蓬松效果。</p>
+                            <a href="#" class="btn btn-primary">查看做法</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <span>给我饭</span>
+                    </div>
+                    <p style="color: #b2bec3; font-size: 14px; line-height: 1.8;">
+                        专注于连接食客与美食的智能平台。无论是寻找美味还是分享厨艺，我们都在这里等你。
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>探索</h4>
+                    <ul>
+                        <li><a href="#">餐厅大全</a></li>
+                        <li><a href="#">美食榜单</a></li>
+                        <li><a href="#">附近优惠</a></li>
+                        <li><a href="#">最新活动</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">平台介绍</a></li>
+                        <li><a href="#">加入我们</a></li>
+                        <li><a href="#">联系合作</a></li>
+                        <li><a href="#">用户协议</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关注我们</h4>
+                    <ul>
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">新浪微博</a></li>
+                        <li><a href="#">小红书</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 给我饭. All rights reserved. 仅供演示使用.
+            </div>
+        </div>
+    </footer>
+
+</body>
+                      </html>

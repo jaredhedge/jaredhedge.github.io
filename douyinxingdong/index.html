@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖音星动之夜 - 全明星盛典现场回顾与精彩集锦</title>
+    <meta name="description" content="抖音星动之夜官方网站，提供2024年度顶级娱乐盛典的完整回顾、明星红毯造型、精彩舞台集锦及独家幕后花絮。实时更新活动资讯，高清图片与视频资源下载。">
+    <meta name="keywords" content="抖音星动之夜, 抖音盛典, 明星活动, 综艺现场, 娱乐新闻, 抖音年度盛典">
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #fe2c55;
+            --secondary-color: #25f4ee;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-sub: #b3b3b3;
+            --accent-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            --spacing-unit: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.3s;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        /* Header */
+        header {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        nav a.active {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/seed/duiyinstar/1920/1080') no-repeat center center/cover;
+            filter: brightness(0.6);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-sub);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+        }
+
+        .section-header a {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        /* Highlights Grid */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Categories Section */
+        .categories-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-block {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        .category-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .category-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+
+        .category-list a {
+            color: var(--text-main);
+        }
+
+        .count {
+            background: #333;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        /* Timeline / Schedule */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid #333;
+            margin-left: 1rem;
+        }
+
+        .timeline-item {
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0.2rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 4px solid var(--dark-bg);
+        }
+
+        .time {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #333;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: var(--text-sub);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .categories-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">STAR DANCE NIGHT</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#highlights">精彩瞬间</a></li>
+                    <li><a href="#categories">分类导航</a></li>
+                    <li><a href="#schedule">活动日程</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <h1>抖音星动之夜</h1>
+                <p>汇聚全网顶尖艺人，呈现年度最强视听盛宴。回顾精彩舞台，探索幕后花絮，锁定官方独家资讯。</p>
+                <div>
+                    <a href="#highlights" class="btn btn-primary">观看精彩回放</a>
+                    <a href="#schedule" class="btn btn-outline">查看日程安排</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Highlights Section -->
+            <section id="highlights">
+                <div class="section-header">
+                    <h2>年度盛典高光时刻</h2>
+                    <a href="#">查看更多 &rarr;</a>
+                </div>
+                <div class="highlights-grid">
+                    <!-- Card 1 -->
+                    <article class="card">
+                        <img src="https://picsum.photos/seed/concert1/400/300" alt="舞台表演" class="card-image">
+                        <div class="card-content">
+                            <span class="card-tag">舞台直击</span>
+                            <h3 class="card-title">全开麦Live直击：当红歌手震撼开场</h3>
+                            <div class="card-meta">
+                                <span>2024-12-31</span>
+                                <span>12.5w 次播放</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card">
+                        <img src="https://picsum.photos/seed/redcarpet/400/300" alt="红毯造型" class="card-image">
+                        <div class="card-content">
+                            <span class="card-tag">红毯直击</span>
+                            <h3 class="card-title">星光熠熠：明星红毯造型大赏</h3>
+                            <div class="card-meta">
+                                <span>2024-12-31</span>
+                                <span>8.2w 次点赞</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card">
+                        <img src="https://picsum.photos/seed/backstage/400/300" alt="幕后花絮" class="card-image">
+                        <div class="card-content">
+                            <span class="card-tag">幕后花絮</span>
+                            <h3 class="card-title">台前幕后：艺人备战花絮大公开</h3>
+                            <div class="card-meta">
+                                <span>2025-01-01</span>
+                                <span>5.1w 次观看</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories">
+                <div class="section-header">
+                    <h2>内容分类</h2>
+                </div>
+                <div class="categories-wrapper">
+                    <div class="category-block">
+                        <h3>热门话题</h3>
+                        <ul class="category-list">
+                            <li><a href="#">#年度最佳舞台 <span class="count">2.3w</span></a></li>
+                            <li><a href="#">#神仙同框 <span class="count">1.8w</span></a></li>
+                            <li><a href="#">#最美穿搭 <span class="count">9.5k</span></a></li>
+                            <li><a href="#">#名场面 <span class="count">7.2k</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="category-block">
+                        <h3>艺人阵容</h3>
+                        <ul class="category-list">
+                            <li><a href="#">流量天王 <span class="count">Top 10</span></a></li>
+                            <li><a href="#">实力唱将 <span class="count">Top 8</span></a></li>
+                            <li><a href="#">新生代偶像 <span class="count">Top 15</span></a></li>
+                            <li><a href="#">跨界嘉宾 <span class="count">Top 5</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Schedule Section -->
+            <section id="schedule">
+                <div class="section-header">
+                    <h2>活动日程安排</h2>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="time">18:00 - 19:00</span>
+                        <h3>红毯入场与媒体采访</h3>
+                        <p style="color: var(--text-sub); font-size: 0.9rem; margin-top: 0.5rem;">明星陆续抵达现场，接受媒体采访并展示年度战袍。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="time">19:30 - 20:00</span>
+                        <h3>开场盛典：数字媒体秀</h3>
+                        <p style="color: var(--text-sub); font-size: 0.9rem; margin-top: 0.5rem;">结合AR技术的沉浸式开场表演，点燃全场气氛。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="time">20:00 - 22:30</span>
+                        <h3>主题演出环节</h3>
+                        <p style="color: var(--text-sub); font-size: 0.9rem; margin-top: 0.5rem;">按“复古”、“现代”、“未来”三个篇章进行连续演出。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="time">22:30 - 23:00</span>
+                        <h3>年度奖项颁发</h3>
+                        <p style="color: var(--text-sub); font-size: 0.9rem; margin-top: 0.5rem;">揭晓年度最具人气、最佳表现等重磅奖项。</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">STAR DANCE NIGHT</div>
+                <p style="color: var(--text-sub); margin-top: 1rem; font-size: 0.9rem;">
+                    抖音星动之夜是年度最大的线上娱乐盛典，致力于为用户提供最优质的明星内容与互动体验。
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>关于盛典</h4>
+                <ul>
+                    <li><a href="#">活动简介</a></li>
+                    <li><a href="#">往届回顾</a></li>
+                    <li><a href="#">合作伙伴</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>帮助中心</h4>
+                <ul>
+                    <li><a href="#">观看指南</a></li>
+                    <li><a href="#">版权声明</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>关注我们</h4>
+                <ul>
+                    <li><a href="#">官方微博</a></li>
+                    <li><a href="#">微信公众号</a></li>
+                    <li><a href="#">抖音账号</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 抖音星动之夜组委会 版权所有. 本页面内容仅供展示与回顾。</p>
+        </div>
+    </footer>
+
+</body>
+</html>
